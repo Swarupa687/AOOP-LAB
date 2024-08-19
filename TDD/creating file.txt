@@ -1,0 +1,15 @@
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import java.io.File;
+
+public class FileOperationsTest {
+
+    @Test
+    public void testCreateFile() {
+        String filepath = "test_file.txt";
+        FileOperations.createFile(filepath);
+        File file = new File(filepath);
+        assertTrue(file.exists() && file.isFile());
+        file.delete(); // Cleanup
+    }
+}
