@@ -1,0 +1,9 @@
+<servlet>
+    <servlet-name>ColorServlet</servlet-name>
+    <servlet-class>com.example.ColorServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>ColorServlet</servlet-name>
+    <url-pattern>/colorServlet</url-pattern>
+</servlet-mapping>
