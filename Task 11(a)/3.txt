@@ -1,0 +1,45 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+public class InsertStudentRecords {
+    public static void main(String[] args) {
+        String jdbcURL = "jdbc:mysql://localhost:3306/StudentDB";
+        String username = "root";
+        String password = "your_password";
+        
+        try (Connection connection = DriverManager.getConnection(jdbcURL, username, password)) {
+            String sql = "INSERT INTO Registration (id, name, address, program) VALUES (?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            // Insert 4 records
+            statement.setInt(1, 100);
+            statement.setString(2, "Alice");
+            statement.setString(3, "123 Main St");
+            statement.setString(4, "Computer Science");
+            statement.executeUpdate();
+
+            statement.setInt(1, 101);
+            statement.setString(2, "Bob");
+            statement.setString(3, "456 Oak St");
+            statement.setString(4, "Mechanical Engineering");
+            statement.executeUpdate();
+
+            statement.setInt(1, 102);
+            statement.setString(2, "Carol");
+            statement.setString(3, "789 Pine St");
+            statement.setString(4, "Electrical Engineering");
+            statement.executeUpdate();
+
+            statement.setInt(1, 103);
+            statement.setString(2, "David");
+            statement.setString(3, "321 Maple St");
+            statement.setString(4, "Civil Engineering");
+            statement.executeUpdate();
+
+            System.out.println("Records inserted successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

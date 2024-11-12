@@ -1,0 +1,39 @@
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/student")
+public class StudentDetailsServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+    
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+        String name = request.getParameter("name");
+        String address = request.getParameter("address");
+        String program = request.getParameter("program");
+
+        String jdbcURL = "jdbc:mysql://localhost:3306/StudentDB";
+        String username = "root";
+        String password = "your_password";
+
+        try (Connection connection = DriverManager.getConnection(jdbcURL, username, password)) {
+            String sql = "INSERT INTO Registration (id, name, address, program) VALUES (?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, Integer.parseInt(id));
+            statement.setString(2, name);
+            statement.setString(3, address);
+            statement.setString(4, program);
+            statement.executeUpdate();
+            response.getWriter().println("Student registered successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().println("Error: " + e.getMessage());
+        }
+    }
+}
